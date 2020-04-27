@@ -4,7 +4,7 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-
+'''I've used these variable in heroku config vars by replacting them into os.environ['AUTH0_DOMAIN'] and algorithms abd api_audience'''
 AUTH0_DOMAIN = 'web-secure.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'IMDB API'
