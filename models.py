@@ -18,7 +18,7 @@ def setup_db(app):
     db.app = app
     app.secret_key = os.environ.get('APP_SECRET_KEY')
     db.init_app(app)
-    #db.create_all()
+    db.create_all()
 
 
 '''
