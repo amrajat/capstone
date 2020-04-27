@@ -1,10 +1,16 @@
 import os
-from flask import Flask, request, abort, jsonify
+from flask import (Flask,
+                   request,
+                   abort,
+                   jsonify)
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
-from models import setup_db, Movies, Actors
-from auth import AuthError, requires_auth
+from models import (setup_db,
+                    Movies,
+                    Actors)
+from auth import (AuthError,
+                  requires_auth)
 
 
 def create_app(test_config=None):
@@ -22,47 +28,40 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods',
                              'GET,PUT,POST,PATCH,DELETE,OPTIONS')
         return response
-    
+
     @app.route('/')
     def homepage():
-        return '200', 200
+        return 'Welcome to the Webpage of your API', 200
 
-        
     # Get all the data of actors from database
     @app.route('/actors', methods=['GET'])
     @requires_auth(permission='get:actors')
     def get_all_actors(payload):
-        try:
-            if request.method == 'GET':
-                selection = Actors.query.all()
-                return jsonify({
-                    'success': True,
-                    'actors': [a.format() for a in selection],
-                    'total_actors': len(selection)
-                }), 200
+        if request.method == 'GET':
+            selection = Actors.query.all()
+            return jsonify({
+                'success': True,
+                'actors': [a.format() for a in selection],
+                'total_actors': len(selection)
+            }), 200
 
-            else:
-                abort(405)
-        except:
-            abort(422)
+        else:
+            abort(405)
 
     # Get all the data of movies from database
     @app.route('/movies', methods=['GET'])
     @requires_auth(permission='get:movies')
     def get_all_movies(payload):
-        try:
-            if request.method == 'GET':
-                selection = Movies.query.all()
-                return jsonify({
-                    'success': True,
-                    'movies': [m.format() for m in selection],
-                    'total_movies': len(selection)
-                }), 200
+        if request.method == 'GET':
+            selection = Movies.query.all()
+            return jsonify({
+                'success': True,
+                'movies': [m.format() for m in selection],
+                'total_movies': len(selection)
+            }), 200
 
-            else:
-                abort(405)
-        except:
-            abort(422)
+        else:
+            abort(405)
 
     # Delete actor by id from database
     @app.route('/actors/<int:id>', methods=['DELETE'])
@@ -201,7 +200,41 @@ def create_app(test_config=None):
             "message": "Authorization Error"
         }), 401
 
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            "success": False,
+            "error": 400,
+            "message": "bad request"
+        }), 400
+
+    @app.errorhandler(500)
+    def server_error(error):
+        return jsonify({
+            "success": False,
+            "error": 500,
+            "message": "server error"
+        }), 500
+
+    @app.errorhandler(403)
+    def forbidden_error(error):
+        return jsonify({
+            "success": False,
+            "error": 403,
+            "message": "forbidden"
+        }), 403
+
+    @app.errorhandler(409)
+    def duplicate_resource_error(error):
+        return jsonify({
+            "success": False,
+            "error": 409,
+            "message": "duplicate resource"
+        }), 409
+
     return app
+
+
 app = create_app()
 if __name__ == "__main__":
     app.run(debug=False)

@@ -7,20 +7,23 @@ I found this project very interesting.
 
 ### Installing Dependencies
 
-#### Python 3.7
+#### Python 3.7+
 
 Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
 #### Virtual Enviornment
 
 We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-
+```
+python3 -m venv venv
+venv/bin/activate
+```
 #### PIP Dependencies
 
 Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 This will install all of the required packages we selected within the `requirements.txt` file.
@@ -57,21 +60,21 @@ Setting the `FLASK_ENV` variable to `development` will detect file changes and r
 To run the tests, run
 ```
 
-python test_app.py
+python3 test_app.py
 ```
 
 ## Database Migration
 for database migration, run
 ```
-python manage.py db init
-python manage.py db migrate
-python manage.py db upgrade
+python3 manage.py db init
+python3 manage.py db migrate
+python3 manage.py db upgrade
 ```
 
 ## API Reference
 
 ### Getting Started:
-- Base URL: At this time this app can only run on local server at `https://udacity-capstone-project.herokuapp.com/`.
+- Base URL: `https://udacity-capstone-project.herokuapp.com/`.
 
 - Authentication: This app does not require authentication or API keys.
 ### Authentication:
@@ -90,6 +93,9 @@ The API will return three error types when requests fail:
 - 400: Bad Request
 - 404: Resource Not Found
 - 422: Not Processable
+- 500: Server Error
+- 403: Forbidden Error
+- 409: Duplicate Resource
 
 ## Endpoints
 

@@ -4,12 +4,14 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-'''I've used these variable in heroku config vars by replacting them into os.environ['AUTH0_DOMAIN'] and algorithms abd api_audience'''
+'''I've used these variable in heroku config vars by replacting them
+into os.environ['AUTH0_DOMAIN'] and algorithms abd api_audience'''
 AUTH0_DOMAIN = 'web-secure.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'IMDB API'
 
 # AuthError Exception
+
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
@@ -33,7 +35,8 @@ def get_token_auth_header():
     if places[0].lower() != 'bearer':
         raise AuthError({
             'code': 'invalid_header',
-            'description': 'Invalid - Authorization header must start with "Bearer".'
+            'description':
+            'Invalid - Auth header must start with "Bearer".'
         }, 401)
 
     elif len(places) == 1:
@@ -108,7 +111,7 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': 'Incorrect, check the audience and issuer.'
             }, 401)
         except Exception:
             raise AuthError({

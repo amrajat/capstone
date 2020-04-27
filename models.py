@@ -30,7 +30,7 @@ Movie Model
 class Movies(db.Model):
     __tablename__ = 'movies'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, nullable=False)
     title = Column(String)
     release_date = Column(Date)
     rating = Column(Integer)
@@ -72,7 +72,7 @@ Actor Model
 class Actors(db.Model):
     __tablename__ = 'actors'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String)
     age = Column(Integer)
     gender = Column(String)
