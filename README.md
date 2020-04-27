@@ -1,2 +1,2 @@
-# capstone
-Simple RBAC based REST API: This is the final capstone project for Udacity's Full Stack Developer Nanodegree.
+# Casting Agency
+The Casting Agency models a company that is responsible for creating movies and managing and assigning actors to those movies

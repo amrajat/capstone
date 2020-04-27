@@ -11,7 +11,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    app.secret_key = 'hard'  # os.environ.get('SECRET_KEY')
+    app.secret_key = os.environ.get('APP_SECRET_KEY')
 
     CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -22,7 +22,12 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods',
                              'GET,PUT,POST,PATCH,DELETE,OPTIONS')
         return response
+    
+    @app.route('/')
+    def homepage():
+        return '200', 200
 
+        
     # Get all the data of actors from database
     @app.route('/actors', methods=['GET'])
     @requires_auth(permission='get:actors')
