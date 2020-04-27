@@ -71,7 +71,7 @@ python manage.py db upgrade
 ## API Reference
 
 ### Getting Started:
-- Base URL: At this time this app can only run on local server at `http://127.0.0.1:5000/`, which is set as proxy in the frontend configuration.
+- Base URL: At this time this app can only run on local server at `https://udacity-capstone-project.herokuapp.com/`.
 
 - Authentication: This app does not require authentication or API keys.
 ### Authentication:
